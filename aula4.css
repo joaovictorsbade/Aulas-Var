@@ -1,5 +1,5 @@
 html{
-    height: 100%; 
+    height: 180%; 
   }
 
   body {
@@ -11,16 +11,18 @@ html{
 }
 
  .box{
+       /*display:none*/
         position: absolute;
-        top: 50%;
+        top: 90%;
         left: 50%;
-        width: 400px;
+        width: 550px;
         padding: 40px;
         transform: translate(-50%, -50%);
         background: rgba(0, 0, 0, 0.5);
         box-sizing: border-box;
         box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
         border-radius: 10px;
+        
  }
 
  .box h1 {
@@ -34,7 +36,7 @@ html{
     position: relative;
   }
   
-  .box .campos input {
+  .box .campos #input-box {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
@@ -45,7 +47,7 @@ html{
     outline: none;
     background: transparent;
   }
-  .box .campos label {
+  .box .campos #estilo {
     position: absolute;
     top:0;
     left: 0;
@@ -56,8 +58,8 @@ html{
     transition: .5s;
   }
   
-  .box .campos input:focus ~ label,
-  .box .campos input:valid ~ label {
+  .box .campos input:focus #estilo,
+  .box .campos input:valid #estilo {
     top: -20px;
     left: 0;
     color: rgb(175, 3, 175);
@@ -77,9 +79,58 @@ html{
 
   #imgteste{
     border-radius: 20px;
+    width: 100%;
   }
 
   #file{
     color: #00000000;
     
   }
+
+.estilo-cor{
+  color: white;
+}
+
+#input-color{
+  width: 100%;
+  font-size: 16px;
+  color: rgb(199, 88, 199);
+  margin-bottom: 30px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+#input-checkbox{
+  margin-bottom: 30px;
+}
+
+.box .campos #input-list {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: rgb(199, 88, 199);
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  outline: none;
+  background: transparent;
+}
+
+.estilo-list{
+ position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    pointer-events: none;
+    transition: .5s;;
+
+}
+
+@media (max-width: 450px)
+{
+  .box{
+    /*display: none;*/
+  }
+}

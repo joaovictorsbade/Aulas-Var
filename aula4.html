@@ -26,31 +26,55 @@
           </table>
 
         <div class="campos">
-            <input type="text" name="" required="">
-            <label>text</label>
+            <input type="text" name="" required=""  id="input-box">
+            <label id="estilo">text</label>
         </div>
 
         <div class="campos">
-            <input type="password" name="" required="">
-            <label>password</label>
+            <input type="password" name="" required="" id="input-box">
+            <label id="estilo">password</label>
         </div>
         <div class="campos">
-            <input type="number" name="" required="">
-            <label>number</label>
+            <input type="number" name="" required="" id="input-box">
+            <label id="estilo">number</label>
         </div>
         <div class="campos">
-            <input type="date" name="" required="">
+            <input type="date" name="" required="" id="input-box">
         </div>
         <div class="campos">
-            <input type="email" name="" required="">
-            <label>email</label>
+            <input type="email" name="" required="" id="input-box">
+            <label id="estilo">email</label>
         </div>
         <div class="campos">
-            <input id="file" type="file" name="" required="">
-            <label>file</label>
+            <input list="lista" name="" required="" id="input-list">
+            <label class="estilo-list">Lista</label>
+            <datalist id="lista">
+                <option value="Conteudo 1"></option>
+                <option value="Conteudo 2"></option>
+                <option value="Conteudo 3"></option>
+                <option value="Conteudo 4"></option>
+                <option value="Conteudo 5"></option>
+            </datalist>
         </div>
-        <input type="submit" value="button">
+        <div class="campos">
+            <label class="estilo-cor">Color</label>
+            <input type="color" name="" required="" id="input-color">
+        </div>
+        <div class="campos">
+            <label class="estilo-cor">Checkbox</label>
+            <input type="checkbox" name="" required="" id="input-checkbox">
+        </div>
+
+        <div class="campos">
+            <input id="file" type="file" name="" required="" id="input-box">
+        </div>
+        <input type="submit" value="button" id="input-box">
       </form>
+        <button type="button" onclick="alert('Olá Mundo')">Alerta</button>
+
    </div>
+
+    
+
 </body>
 </html>
