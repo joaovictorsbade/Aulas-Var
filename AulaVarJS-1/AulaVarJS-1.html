@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="AulaVarJS.css">
+    <script src="AulaVarJS.js"></script>
+</head>
+
+<body>
+    <div class="login-box">
+
+        <h2>Testes JavaScript</h2>
+        <form>
+
+            <h3>Horario:</h3>
+            <h3 id="horario">...</h3>
+            <button type="button" onclick="alterarTexto()">Horario</button>
+
+            <br><br>
+            <hr class="hr1">
+
+            <h1 id="h1teste">Testes</h1>
+            <button type="button" onclick="alertaPadrao('Testando funções')">Alterando Texto</button>
+
+            <br><br>
+            <hr class="hr1">
+            <br><br>
+
+            <div class="user-box">
+                <input id="num1" type="number">
+                <label>Digite o primeiro numero</label>
+            </div>
+            <div class="user-box">
+                <input id="num2" type="number">
+                <label>Digite o segundo numero</label>
+            </div>
+
+            <button onclick="Cauculadora('Somar')">Somar</button>
+            <button onclick="Cauculadora('Subtrair')">Subtrair</button>
+            <button onclick="Cauculadora('Multiplicar')">Multiplicar</button>
+            <button onclick="Cauculadora('Dividir')">Dividir</button>
+
+        </form>
+    </div>
+    
+</body>
+
+</html>

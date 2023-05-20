@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="AulaVar.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <img src="https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/main_image_star-forming_region_carina_nircam_final-1280.jpg"
+            title="O universo é muito grande, nossas preucupações são insignificantes" width="320px" alt="teste"
+            id="imgteste">
+        <h1 id="h1teste">Testes</h1>
+        <form>
+
+            <table>
+                <tr>
+                    <th>Nome</th>
+
+                </tr>
+                <tr>
+                    <td>João Victor</td>
+                </tr>
+                <tr>
+                    <td id="horario">00:00</td>
+                </tr>
+
+            </table>
+
+            <div class="campos">
+                <input type="text" name="" required="" id="input-box">
+                <label id="estilo">text</label>
+            </div>
+
+            <div class="campos">
+                <input type="password" name="" required="" id="input-box">
+                <label id="estilo">password</label>
+            </div>
+            <div class="campos">
+                <input type="number" name="" required="" id="input-box">
+                <label id="estilo">number</label>
+            </div>
+            <div class="campos">
+                <input type="date" name="" required="" id="input-box">
+            </div>
+            <div class="campos">
+                <input type="email" name="" required="" id="input-box">
+                <label id="estilo">email</label>
+            </div>
+            <div class="campos">
+                <input list="lista" name="" required="" id="input-list">
+                <label class="estilo-list">Lista</label>
+                <datalist id="lista">
+                    <option value="Conteudo 1"></option>
+                    <option value="Conteudo 2"></option>
+                    <option value="Conteudo 3"></option>
+                    <option value="Conteudo 4"></option>
+                    <option value="Conteudo 5"></option>
+                </datalist>
+            </div>
+            <div class="campos">
+                <label class="estilo-cor">Color</label>
+                <input type="color" name="" required="" id="input-color">
+            </div>
+            <div class="campos">
+                <label class="estilo-cor">Checkbox</label>
+                <input type="checkbox" name="" required="" id="input-checkbox">
+            </div>
+
+            <div class="campos">
+                <input id="file" type="file" name="" required="" id="input-box">
+            </div>
+        </form>
+        <button onclick="Somar()">Somar numeros</button>
+
+    </div>
+
+<script>
+
+
+    function Somar(){
+         
+        var valor1 = 1
+        var valor2 = 7 
+        var resultado = valor1 + valor2 
+        alert(resultado)
+    }
+</script>
+
+</body>
+
+</html>
