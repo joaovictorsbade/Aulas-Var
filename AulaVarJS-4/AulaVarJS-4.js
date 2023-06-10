@@ -8,8 +8,9 @@ const urlParametros = new URLSearchParams(window.location.search)
 const idPost = urlParametros.get("id")
 const comentariosContainer = document.querySelector("#comentarios-container")
 
-console.log(urlParametros)
-console.log("o id post é " + idPost)
+const comentarioForm = document.querySelector("#comentario-from")
+const emailInput = document.querySelector("#email")
+const comentarioinput = document.querySelector("#tcomentario")
 
 if(!idPost) {
   BuscarTodosPosts()
@@ -18,6 +19,20 @@ if(!idPost) {
 else{
   console.log("o valor do idPost é " + idPost)
   BuscarPostEspecifico(idPost)
+
+  comentarioForm.addEventListener("submit" , (e) => {
+    e.preventDefault()
+
+    let comentarioInserido = {
+      email: emailInput.value,
+      body: comentarioinput.value,
+    }
+
+    comentarioInserido = JSON.stringify(comentarioInserido)
+
+    postComentario(comentarioInserido)
+
+  })
 }
 
 
@@ -51,13 +66,18 @@ async function BuscarTodosPosts(){
 }
 
 async function BuscarPostEspecifico(id){
-  const respostaPost = await fetch(`${url}/${id}`)//fetch(url + "/" + id)
-  const respostaComentario = await fetch(`${url}/${id}/comments`)
+  //const respostaPost = await fetch(`${url}/${id}`)//fetch(url + "/" + id)
+  //const respostaComentario = await fetch(`${url}/${id}/comments`)
+
+  const [respostaPost, respostaComentario] = await Promise.all([
+    fetch(`${url}/${id}`),
+    fetch(`${url}/${id}/comments`),
+  ])
 
   const dataPostagem = await respostaPost.json()
   const dataComentario = await respostaComentario.json()
 
-  console.log(dataPostagem)
+  loadingElement.classList.add("hide")
   
   const title = document.createElement("h1")
   const body = document.createElement("p")
@@ -93,4 +113,16 @@ function criarComentario(comentario){
   divComentario.appendChild(email)
   divComentario.appendChild(paragrafocomentario)
   comentariosContainer.appendChild(divComentario)
+}
+
+async function postComentario (comentario){
+  const resposta = await fetch(url, {
+    method: "POST",
+  body: comentario,
+  headers:{
+    "Content-type" : "application/json",
+  }})
+  const dataResposta = await resposta.json()
+  criarComentario(dataResposta)
+
 }

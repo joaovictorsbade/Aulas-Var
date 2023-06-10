@@ -5,11 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="AulaVarJS-4.css">
 </head>
 <body>
     <p id="loading">Carregando..</p>
     <a href="AulaVarJS-4.html">Voltar</a>
     <div id="post-container"></div>
+    <h2>Comentarios</h2>
+    <form id="comentario-from">
+        <div>
+            <label for="email">Seu Email</label>
+            <input type="email" name="email" id="email" placeholder="Digite seu email" required >
+        </div>
+        <div>
+            <label for="comentario">Comentario</label>
+            <textarea name="tcomentario" id="tcomentario" placeholder="Digite seu comentario"></textarea>
+        </div>
+       <input type="submit" value="Enviar">
+    </form>
     <div id="comentarios-container"></div>
     <script src="AulaVarJS-4.js"></script>
 </body>
