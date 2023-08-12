@@ -1,10 +1,17 @@
 package com.br.var.solutions;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.KeyStore;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @RestController
@@ -12,6 +19,9 @@ import java.util.Objects;
 @CrossOrigin(origins = "*")
 @Slf4j
 public class PessoaController {
+
+    private static final String SECRET_KEY = "tokenApiVarSolutions2023RrequestAurhorizationbRASIL";
+
     @GetMapping
     public ResponseEntity<Object> get() {
         PessoaRequest pessoaRequest1 = new PessoaRequest();
@@ -24,14 +34,15 @@ public class PessoaController {
     }
 
     @GetMapping("/resumo")
-    public ResponseEntity<Object> getPessoa(@RequestBody PessoaRequest pessoinha) {
-        String imc = null;
+    public ResponseEntity<Object> getPessoa(@RequestBody PessoaRequest pessoinha, @RequestParam(value = "valida_mundial") Boolean DesejavalidaMundial) {
+        InformacoesIMC imc = new InformacoesIMC();
         int anoNascimento = 0;
         String impostoRenda = null;
         String saldoEmDolar = null;
         String validaMundial = null;
 
         if (!pessoinha.getNome().isEmpty()) {
+
             log.info("Iniciando processo de resumo da pessoa: ", pessoinha);
 
             if (Objects.nonNull(pessoinha.getPeso()) && Objects.nonNull(pessoinha.getAltura())) {
@@ -44,15 +55,17 @@ public class PessoaController {
                 anoNascimento = calculaAnoNascimento(pessoinha.getIdade());
             }
 
+
             if (Objects.nonNull(pessoinha.getSalario())) {
                 log.info("Iniciando o cálculo do imposto de renda");
                 impostoRenda = calculoFaixaImpostoRenda(pessoinha.getSalario());
             }
 
-            if (Objects.nonNull(pessoinha.getTime())) {
-                log.info("Validando se o time de coração tem mundial: ");
-                validaMundial = calculaMundial(pessoinha.getTime());
-            }
+             if(Boolean.TRUE.equals(DesejavalidaMundial)){
+                 if (Objects.nonNull(pessoinha.getTime())) {
+                 log.info("Validando se o time de coração tem mundial: ");
+                 validaMundial = calculaMundial(pessoinha.getTime());
+             }}
 
             if (Objects.nonNull(pessoinha.getSaldo())) {
                 log.info("Converter real em dolar");
@@ -68,15 +81,24 @@ public class PessoaController {
         return ResponseEntity.noContent().build();
     }
 
-    private PessoaResponse montarRespostaFrontEnd(PessoaRequest pessoa, String imc, int anoNascimento, String impostoRenda, String validaMundial, String saldoEmDolar) {
+    private PessoaResponse montarRespostaFrontEnd(PessoaRequest pessoa, InformacoesIMC imc, int anoNascimento, String impostoRenda, String validaMundial, String saldoEmDolar) {
+
         PessoaResponse response = new PessoaResponse();
+
         response.setNome(pessoa.getNome());
-        response.setImc(imc);
+        response.setImc(imc.getImc());
+        response.setClassificacaoIMC(imc.getClassificacao());
         response.setSalario(impostoRenda);
         response.setAnoNascimento(anoNascimento);
         response.setMundialClubes(validaMundial);
         response.setSaldoEmDolar(saldoEmDolar);
         response.setIdade(pessoa.getIdade());
+        response.setTime(pessoa.getTime());
+        response.setSobrenome(pessoa.getSobrenome());
+        response.setEndereco(pessoa.getEndereco());
+        response.setAltura(pessoa.getAltura());
+        response.setPeso(pessoa.getPeso());
+        response.setSaldo(pessoa.getSaldo());
 
         return response;
     }
@@ -141,22 +163,66 @@ public class PessoaController {
         return anoAtual - idade;
     }
 
-    private String calculaImc(double peso, double altura) {
+    private InformacoesIMC calculaImc(double peso, double altura) {
         double imc = peso / (altura * altura);
 
+        InformacoesIMC imcCalculado = new InformacoesIMC();
+
         if (imc < 18.5) {
-            return "O IMC calculado é: " + imc + "e você está abaixo do peso.";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificacao("abaixo do peso");
+            return imcCalculado;
         } else if (imc >= 18.5 && imc <= 24.9) {
-            return "O IMC calculado é: " + imc + "e você está no peso ideal.";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificacao("peso ideal");
+            return imcCalculado;
         } else if (imc > 24.9 && imc <= 29.9) {
-            return "O IMC calculado é: " + imc + "e você está com excesso de peso.";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificacao("excesso de peso");
+            return imcCalculado;
         } else if (imc > 29.9 && imc <= 34.9) {
-            return "O IMC calculado é: " + imc + "e você está em estado de Obesidade classe I.";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificacao("obesidade I");
+            return imcCalculado;
         } else if (imc > 34.9 && imc < 39.9) {
-            return "O IMC calculado é: " + imc + "e você está em estado de Obesidade classe II ";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificacao("obesidade II");
+            return imcCalculado;
         } else {
-            return "O IMC calculado é: \" + imc + \" e você está em estado de Obesidade classe III";
+            imcCalculado.setImc(String.valueOf(imc));
+            imcCalculado.setClassificacao("obesidade III");
+            return imcCalculado;
         }
     }
+//    @DeleteMapping
+//    public void retornDelete(){
+//
+//    }
+//    @PutMapping
+//    public void retornoPut(){
+//
+//    }
+//    @PostMapping
+//    public void retornoPost(){
+//
+//    }
 
+    @PostMapping(path = "/authorization", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<String> authorization(@RequestParam("client_id") String clientId, @RequestParam("password") String password){
+        Boolean validaUsuario = ValidaUsuario.validaUsuario(clientId, password);
+        if(Boolean.FALSE.equals(validaUsuario)){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha invalidos");
+        }
+
+        long expirationDate = System.currentTimeMillis() + 1800000;
+
+        String token = Jwts.builder()
+                .setSubject(clientId)
+                .setExpiration(new Date(expirationDate))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
+
+        return ResponseEntity.ok(token);
+
+    }
 }
